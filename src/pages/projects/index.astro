@@ -1,0 +1,71 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content"
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+import SearchCollection from "@components/SearchCollection"
+import { PROJECTS } from "@consts"
+
+// Load all non-draft projects
+const allProjects = (await getCollection("projects")).filter((p) => !p.data.draft)
+
+// Sort: featured first (if frontmatter has featured: true), then by date desc
+const projects = allProjects.sort((a, b) => {
+  const fa = a.data.featured ? 1 : 0
+  const fb = b.data.featured ? 1 : 0
+  if (fa !== fb) return fb - fa
+  return b.data.date.getTime() - a.data.date.getTime()
+})
+
+// Tags list (unique, sorted) — guard against undefined tags
+const tags = [
+  ...new Set(
+    projects.flatMap((p) => Array.isArray(p.data.tags) ? p.data.tags : [])
+  ),
+].sort((a, b) => a.localeCompare(b))
+
+// Initial height so the SearchCollection mount doesn't jump
+const estimated_initial_size = 28 + projects.length * 158 + Math.max(0, projects.length - 1) * 12
+---
+
+<PageLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
+  <TopLayout>
+    <div class="animate">
+      <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">
+        {PROJECTS.TITLE}
+      </h1>
+      {PROJECTS.DESCRIPTION && (
+        <div class="mt-1">
+          {PROJECTS.DESCRIPTION}
+        </div>
+      )}
+    </div>
+  </TopLayout>
+
+  <BottomLayout>
+    <div
+      id="search-collection-wrapper"
+      class="animate"
+      style={{ minHeight: `${estimated_initial_size}px` }}
+    >
+      <SearchCollection
+        client:load
+        entry_name={"projects"}
+        tags={tags}
+        data={projects}
+      />
+    </div>
+
+    <!-- Optional: link row under the grid -->
+    <div class="mt-6 text-sm opacity-80">
+      <a
+        href="https://github.com/luhgit?tab=repositories"
+        target="_blank"
+        rel="noopener"
+        class="underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white"
+      >
+        See more on GitHub →
+      </a>
+    </div>
+  </BottomLayout>
+</PageLayout>
