@@ -61,7 +61,6 @@ export default function ArrowCard({ entry, pill }: Props) {
               <ul class="flex flex-wrap gap-1">
                 {tags.map((tag: string, i: number) => (
                   <li
-                    key={`${entry.slug}-tag-${i}`}
                     class="text-xs uppercase py-0.5 px-2 rounded bg-black/5 dark:bg-white/20 text-black/75 dark:text-white/75"
                   >
                     {truncateText(tag, 20)}
