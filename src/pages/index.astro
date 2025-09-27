@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content"
 import PageLayout from "@layouts/PageLayout.astro"
 import ArrowCard from "@components/ArrowCard"
-import StackCard from "@components/StackCard.astro"
+// import StackCard from "@components/StackCard.astro"
 import { SITE, SOCIALS } from "@consts"
 import TwinklingStars from "@components/TwinklingStars.astro"
 import MeteorShower from "@components/MeteorShower.astro"
@@ -17,51 +17,51 @@ const projects = (await getCollection("projects"))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0,3)
 
-const stack = [
-  { 
-    text: "Astro", 
-    icon: "astro", 
-    href: "https://astro.build" 
-  },
-  { 
-    text: "Javascript", 
-    icon: "javascript", 
-    href: "https://www.javascript.com" 
-  },
-  { 
-    text: "Typescript", 
-    icon: "typescript", 
-    href: "https://www.typescriptlang.org" 
-  },
-  { 
-    text: "Tailwind", 
-    icon: "tailwind", 
-    href: "https://tailwindcss.com" 
-  },
-]
+// const stack = [
+//   { 
+//     text: "Astro", 
+//     icon: "astro", 
+//     href: "https://astro.build" 
+//   },
+//   { 
+//     text: "Javascript", 
+//     icon: "javascript", 
+//     href: "https://www.javascript.com" 
+//   },
+//   { 
+//     text: "Typescript", 
+//     icon: "typescript", 
+//     href: "https://www.typescriptlang.org" 
+//   },
+//   { 
+//     text: "Tailwind", 
+//     icon: "tailwind", 
+//     href: "https://tailwindcss.com" 
+//   },
+// ]
 ---
 
 <PageLayout title="Home" description={SITE.DESCRIPTION}>
 
   <!-- Light Mode: Particles -->
-  <div class='absolute inset-0 block dark:hidden'>
-    <div id='particles1' class='fixed inset-0'></div>
-    <div id='particles2' class='fixed inset-0'></div>
-    <div id='particles3' class='fixed inset-0'></div>
+  <div class="absolute inset-0 block dark:hidden pointer-events-none z-0">
+    <div id="particles1" class="fixed inset-0"></div>
+    <div id="particles2" class="fixed inset-0"></div>
+    <div id="particles3" class="fixed inset-0"></div>
   </div>
 
   <!-- Dark Theme: Stars -->
-  <div class='absolute inset-0 bg-black hidden dark:block'>
-    <div id='stars1' class='fixed inset-0'></div>
-    <div id='stars2' class='fixed inset-0'></div>
-    <div id='stars3' class='fixed inset-0'></div>
+  <div class="absolute inset-0 hidden dark:block pointer-events-none z-0">
+    <div id="stars1" class="fixed inset-0"></div>
+    <div id="stars2" class="fixed inset-0"></div>
+    <div id="stars3" class="fixed inset-0"></div>
   </div>
 
-  <!-- Dark Theme: Twinkling Stars / Metors -->
-  <div id="galaxy" class="fixed inset-0">
+  <!-- Dark Theme: Twinkling Stars / Meteors -->
+  <div id="galaxy" class="fixed inset-0 pointer-events-none z-0">
     <div class="hidden dark:block">
-      <TwinklingStars/>
-      <MeteorShower/>
+      <TwinklingStars />
+      <MeteorShower />
     </div>
   </div>
 
@@ -69,61 +69,62 @@ const stack = [
   
   <!-- HERO -->
   <section class="relative h-screen w-full">
-    <div id="planetcont" class='animate absolute inset-0 top-1/4 overflow-hidden'>
-      <div id="crescent" class='absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] min-h-[100vh] aspect-square rounded-full p-[1px] bg-gradient-to-b from-black/25 dark:from-white/75 from-0% to-transparent to-5%'>
-        <div id="planet" class='w-full h-full bg-white dark:bg-black rounded-full p-[1px] overflow-hidden flex justify-center'>
-          <div id="blur" class='w-full h-20 rounded-full bg-neutral-900/25 dark:bg-white/25 blur-3xl'/>
+    <!-- Planet background -->
+    <div id="planetcont" class="animate absolute inset-0 top-1/4 overflow-hidden pointer-events-none z-0">
+      <div id="crescent" class="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] min-h-[100vh] aspect-square rounded-full p-[1px] bg-gradient-to-b from-black/25 dark:from-white/75 from-0% to-transparent to-5%">
+        <div id="planet" class="w-full h-full bg-white dark:bg-black rounded-full p-[1px] overflow-hidden flex justify-center">
+          <div id="blur" class="w-full h-20 rounded-full bg-neutral-900/25 dark:bg-white/25 blur-3xl" />
         </div>
       </div>
     </div>
-    <div class="animate absolute h-full w-full flex items-center justify-center">
-      <div class='relative w-full h-full flex items-center justify-center'>
-          <div class='p-5 text-center relative z-10 flex flex-col items-center gap-4'>
 
-            <!-- Avatar -->
-            <img
-              src="/images/avatar_amit.jpeg"
-              alt="Amit Tyagi"
-              width="125"
-              height="125"
-              class="rounded-full ring-2 ring-white/70 shadow-[0_0_30px_-12px_rgba(255,255,255,0.6)]"
-              loading="eager"
-            />
+    <!-- Foreground content -->
+    <div class="absolute h-full w-full flex items-center justify-center z-10">
+      <div class="relative w-full h-full flex items-center justify-center">
+        <div class="p-5 text-center flex flex-col items-center gap-4" style="-webkit-transform: translateZ(0);">
 
-            <!-- Greeting -->
-            <p class="animated text-lg md:text-xl lg:text-2xl font-semibold text-neutral-500 dark:text-neutral-300">
-              Hello, I am …
-            </p>
+          <!-- Avatar -->
+          <img
+            src="/images/avatar_amit.jpeg"
+            alt="Amit Tyagi"
+            width="125"
+            height="125"
+            class="rounded-full ring-2 ring-white/70 shadow-[0_0_30px_-12px_rgba(255,255,255,0.6)]"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
 
+          <!-- Greeting -->
+          <p class="animated text-lg md:text-xl lg:text-2xl font-semibold text-neutral-800 dark:text-neutral-300">
+            Hello, I am …
+          </p>
 
-            <!-- Name -->
-            <p class="animated text-2xl md:text-3xl lg:text-4xl font-bold uppercase text-black dark:text-white">
-              Amit
-            </p>
+          <!-- Name -->
+          <p class="animated text-2xl md:text-3xl lg:text-4xl font-bold uppercase text-black dark:text-white">
+            Amit
+          </p>
 
+          <!-- Tagline -->
+          <p class="animated text-sm md:text-base lg:text-lg text-neutral-700 dark:text-neutral-300 max-w-2xl">
+            Applied AI Researcher & Data Scientist.
+            I build ML systems — from prompt engineering and fine-tuning
+            to evaluation, data analysis, and synthetic data generation in highly protected domains.
+          </p>
 
-            <!-- Tagline -->
-            <p class="animated text-sm md:text-base lg:text-lg text-neutral-500 dark:text-neutral-300 max-w-2xl">
-              Applied AI Researcher & Data Scientist (10+ yrs).  
-              I build ML systems — from prompt engineering and fine-tuning  
-              to evaluation, data analysis, and synthetic data generation in highly protected domains.
-            </p>
+          <!-- CTAs -->
+          <div id="ctaButtons" class="animated flex flex-wrap gap-3 justify-center mt-4">
+            <a href="/projects"
+              class="py-2 px-4 rounded text-xs md:text-sm lg:text-base bg-black text-white dark:bg-white dark:text-black hover:opacity-80 transition-colors">
+              View Projects
+            </a>
+            <a href="/work"
+              class="py-2 px-4 rounded text-xs md:text-sm lg:text-base border border-neutral-600 text-neutral-800 dark:border-neutral-300 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+              Work
+            </a>
+          </div>
 
-            <!-- CTAs -->
-            <div id="ctaButtons" class='animated flex flex-wrap gap-3 justify-center mt-4'>
-              <a href='/projects'
-                   class="py-2 px-4 rounded text-xs md:text-sm lg:text-base bg-black text-white dark:bg-white dark:text-black hover:opacity-80 transition-colors">
-                View Projects
-              </a>
-              <a href='/work'
-                class="py-2 px-4 rounded text-xs md:text-sm lg:text-base border border-neutral-600 text-neutral-800 dark:border-neutral-300 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
-                Work
-              </a>
-              <!-- <a href='https://newsletter.yourdomain.com'
-                class='py-2 px-4 rounded text-xs md:text-sm lg:text-base border border-blue-500 text-blue-400 hover:bg-blue-500/10 blend'>
-                Newsletter
-              </a> -->
-            </div>
+        </div>
       </div>
     </div>
   </section>
